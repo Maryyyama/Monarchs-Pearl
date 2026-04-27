@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monarch's Pearl	</title>
+    <meta name="description" content="Изысканная интерактивная печатная машинка, создающая золотые жемчужные пузырьки с каждым нажатием клавиши. Эстетика старого богатства и гламура.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Cormorant+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="корона для вкладки.jpg" type="image/jpeg">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with title and subtitle -->
+        <header class="header">
+            <h1 class="title">Monarch's <span class="accent">Pearl</span></h1>
+            <p class="subtitle">Изысканная интерактивная печатная машинка, создающая золотые жемчужны с каждым нажатием клавиши. Эстетика старого богатства и гламура.</p>
+            <p class="instruction">Сделайте ваш изящный нажим клавиши…</p>
+        </header>
+
+        <!-- Main canvas where pearls will appear -->
+        <main class="canvas" id="canvas">
+            <!-- Pearls will be dynamically inserted here -->
+            <div class="hint">
+                <p>Нажмите любую букву, цифру или пробел</p>
+                <p class="small">(Shift, Ctrl, Alt игнорируются)</p>
+            </div>
+        </main>
+
+        <!-- Control panel -->
+        <footer class="controls">
+            <div class="sound-toggle" id="soundToggle" aria-label="Переключить звук">
+                <img src="звук есть.jpg" alt="Звук включён" class="sound-icon sound-on">
+                <img src="звука нет.jpg" alt="Звук выключен" class="sound-icon sound-off hidden">
+                <span class="sound-label">Звук включён</span>
+            </div>
+            <div class="counter">
+                <span class="counter-label">Создано жемчужин:</span>
+                <span class="counter-value" id="counter">0</span>
+            </div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-pearl">А</div>
+                    <span>Золотая жемчужина с буквой</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-pearl">␣</div>
+                    <span>Пробел показывает ␣</span>
+                </div>
+            </div>
+        </footer>
+
+
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>

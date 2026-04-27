@@ -1,0 +1,482 @@
+/* ==========================================================================
+   Monarch's Pearl — стиль Old Money / Glamour
+   Фон: тёмно-бежевый мрамор / ткань «шанель» / бархат с лёгким свечением
+   Цвета: золото (#C9A87C), латунь, сдержанный глиттер
+   Шрифты: Playfair Display (заголовки), Cormorant Garamond, Montserrat Light
+   ========================================================================== */
+
+/* CSS Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden; /* чтобы не появлялся скролл при подъёме пузырьков */
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    color: #f5f1e8;
+    background: #1a0f0a; /* fallback тёмный */
+}
+
+body {
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(201, 168, 124, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(139, 69, 19, 0.03) 0%, transparent 40%),
+        linear-gradient(135deg, #2c1e14 0%, #3a281c 30%, #1f150e 100%);
+    background-attachment: fixed;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Имитация текстуры бархата / мрамора с помощью псевдоэлемента */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.03"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><rect width="100" height="100" fill="%23000000"/><path d="M0 0h100v100H0z" fill="none" stroke="%23C9A87C" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Контейнер */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    min-height: 90vh;
+    background: rgba(30, 20, 15, 0.7);
+    border: 1px solid rgba(201, 168, 124, 0.3);
+    border-radius: 24px;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 40px rgba(201, 168, 124, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Декоративные уголки */
+.corner {
+    position: absolute;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.corner:hover {
+    opacity: 0.9;
+}
+.corner-tl { top: 20px; left: 20px; }
+.corner-tr { top: 20px; right: 20px; }
+.corner-bl { bottom: 20px; left: 20px; }
+.corner-br { bottom: 20px; right: 20px; }
+
+/* Изображения внутри уголков */
+.corner-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    filter: sepia(1) brightness(1.2) saturate(1.5); /* золотистый оттенок */
+}
+
+/* Шапка */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(201, 168, 124, 0.2);
+}
+
+.title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #f5f1e8;
+    margin-bottom: 10px;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.title .accent {
+    color: #C9A87C;
+    font-style: italic;
+    position: relative;
+    display: inline-block;
+}
+
+.title .accent::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #C9A87C, transparent);
+}
+
+.subtitle {
+    font-family: 'Cormorant SC', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: #d4c4a8;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.instruction {
+    font-family: 'Cormorant SC', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #b8a98c;
+    margin-top: 10px;
+}
+
+/* Основное поле (canvas) */
+.canvas {
+    flex: 1;
+    position: relative;
+    background: rgba(20, 15, 10, 0.3);
+    border-radius: 16px;
+    border: 1px dashed rgba(201, 168, 124, 0.2);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    margin-bottom: 30px;
+}
+
+.hint {
+    text-align: center;
+    color: #a08e6f;
+    font-size: 1.2rem;
+    max-width: 500px;
+    padding: 30px;
+    background: rgba(30, 22, 15, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(201, 168, 124, 0.1);
+}
+
+.hint p {
+    margin-bottom: 8px;
+}
+
+.hint .small {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Панель управления */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(201, 168, 124, 0.2);
+}
+
+/* Переключатель звука */
+.sound-toggle {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 24px;
+    background: rgba(40, 30, 20, 0.7);
+    border: 1px solid rgba(201, 168, 124, 0.4);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.sound-toggle:hover {
+    background: rgba(50, 38, 26, 0.9);
+    border-color: #C9A87C;
+    box-shadow: 0 0 15px rgba(201, 168, 124, 0.3);
+}
+
+.sound-toggle.muted {
+    background: rgba(30, 22, 15, 0.7);
+    border-color: rgba(150, 150, 150, 0.4);
+}
+
+.sound-label {
+    font-size: 1rem;
+    color: #d4c4a8;
+}
+
+/* Иконки звука */
+.sound-icon {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}
+.sound-icon.hidden {
+    display: none;
+}
+
+/* Счётчик */
+.counter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    background: rgba(40, 30, 20, 0.7);
+    border: 1px solid rgba(201, 168, 124, 0.4);
+    border-radius: 50px;
+}
+
+.counter-label {
+    font-size: 1rem;
+    color: #b8a98c;
+}
+
+.counter-value {
+    font-family: 'Cormorant SC', serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: #C9A87C;
+    min-width: 60px;
+    text-align: center;
+}
+
+/* Легенда */
+.legend {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.legend-pearl {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,
+        #E6D2A9 0%,
+        #D4B97F 25%,
+        #C9A87C 50%,
+        #B8945C 75%,
+        #A87D3E 100%);
+    border: 2px solid rgba(255, 223, 150, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: #5C4A2A;
+    box-shadow:
+        inset 0 -5px 15px rgba(255, 240, 200, 0.9),
+        inset 0 5px 10px rgba(180, 150, 100, 0.4),
+        inset 0 0 20px rgba(255, 230, 180, 0.6),
+        0 3px 10px rgba(0, 0, 0, 0.3),
+        0 0 15px rgba(255, 215, 140, 0.7),
+        0 0 10px rgba(200, 160, 100, 0.5);
+}
+
+.legend-item span {
+    font-size: 0.9rem;
+    color: #a08e6f;
+}
+
+/* ==========================================================================
+   Стили для жемчужных пузырьков (pearl)
+   ========================================================================== */
+.pearl {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%; /* идеально круглые жемчужины */
+    background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.95) 0%,
+        rgba(255, 240, 245, 0.9) 25%,
+        rgba(255, 230, 240, 0.85) 50%,
+        rgba(240, 220, 230, 0.8) 75%,
+        rgba(230, 210, 220, 0.75) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow:
+        inset 0 -10px 25px rgba(255, 255, 255, 0.9),
+        inset 0 10px 20px rgba(200, 180, 220, 0.4),
+        inset 0 0 30px rgba(255, 240, 245, 0.6),
+        0 5px 20px rgba(0, 0, 0, 0.2),
+        0 0 25px rgba(255, 240, 250, 0.7),
+        0 0 15px rgba(200, 180, 220, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #333;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    z-index: 10;
+    pointer-events: none;
+    /* Анимация появления */
+    animation: pearlAppear 0.5s ease-out forwards,
+               pearlFloat 2s ease-in-out 0.5s forwards,
+               pearlFade 2s ease-in 0.5s forwards;
+    /* Случайное вращение */
+    transform-origin: center;
+}
+
+/* Золотые жемчужины для цифр и символов */
+.pearl.golden-pearl {
+    background: linear-gradient(135deg,
+        #E6D2A9 0%,
+        #D4B97F 25%,
+        #C9A87C 50%,
+        #B8945C 75%,
+        #A87D3E 100%);
+    border: 2px solid rgba(255, 223, 150, 0.8);
+    box-shadow:
+        inset 0 -10px 25px rgba(255, 240, 200, 0.9),
+        inset 0 10px 20px rgba(180, 150, 100, 0.4),
+        inset 0 0 30px rgba(255, 230, 180, 0.6),
+        0 5px 20px rgba(0, 0, 0, 0.3),
+        0 0 25px rgba(255, 215, 140, 0.7),
+        0 0 15px rgba(200, 160, 100, 0.5);
+    color: #5C4A2A;
+}
+
+/* Анимация появления с лёгким bounce */
+@keyframes pearlAppear {
+    0% {
+        transform: scale(0) rotate(-20deg);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.1) rotate(5deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* Плавное поднятие вверх */
+@keyframes pearlFloat {
+    0% {
+        top: var(--startY);
+    }
+    100% {
+        top: calc(var(--startY) - 300px);
+    }
+}
+
+/* Исчезновение через opacity */
+@keyframes pearlFade {
+    0%, 70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* ==========================================================================
+   Адаптивность
+   ========================================================================== */
+@media (max-width: 992px) {
+    .container {
+        padding: 30px;
+    }
+    .title {
+        font-size: 3.5rem;
+    }
+    .subtitle {
+        font-size: 1.5rem;
+    }
+    .instruction {
+        font-size: 1.3rem;
+    }
+    .controls {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .legend {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .container {
+        padding: 20px;
+        min-height: 95vh;
+    }
+    .title {
+        font-size: 2.8rem;
+    }
+    .subtitle {
+        font-size: 1.3rem;
+    }
+    .instruction {
+        font-size: 1.1rem;
+    }
+    .canvas {
+        min-height: 300px;
+    }
+    .hint {
+        padding: 20px;
+        font-size: 1rem;
+    }
+    .pearl {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+    .pearl.golden-pearl {
+        /* сохраняем те же размеры, что и у обычной жемчужины */
+    }
+    .corner {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 2.2rem;
+    }
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    .instruction {
+        font-size: 1rem;
+    }
+    .sound-toggle, .counter {
+        padding: 10px 20px;
+    }
+    .counter-value {
+        font-size: 1.5rem;
+    }
+    .legend {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
