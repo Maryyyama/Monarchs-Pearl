@@ -33,6 +33,7 @@
 1. Склонируйте репозиторий
 2. Откройте `index.html` в современном браузере
 3. Или используйте локальный сервер: `npx http-server -p 8080`
+[![Live Demo](https://img.shields.io/badge/🌐-Live_Demo-gold?style=for-the-badge)](https://maryyyama.github.io/Monarchs-Pearl/)
 
 ## ⌨️ Как использовать
 
@@ -41,8 +42,6 @@
 - Служебные клавиши (Shift, Ctrl, Alt) игнорируются
 - Кнопка звука внизу — включает/выключает бархатный щелчок
 - Счётчик показывает общее количество созданных жемчужин
-
-[![Live Demo](https://img.shields.io/badge/🌐-Live_Demo-gold?style=for-the-badge)](https://maryyyama.github.io/Monarchs-Pearl/)
 
 ## 📝 Лицензия
 
